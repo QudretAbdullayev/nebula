@@ -70,27 +70,24 @@
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 10rem;
+        gap: 8rem;
         width: 100%;
       }
 
       &__label {
-        min-width: 32rem;
+        min-width: 15rem;
         font-weight: 500;
         font-size: 12rem;
         line-height: 14rem;
-        text-align: right;
+        text-align: center;
         color: #B3B3B3;
       }
 
       &__gridLine {
-        width: calc(100% - 42rem);
-        height: 1rem;
-        background: repeating-linear-gradient(to right,
-            #E6E6E6 0,
-            #E6E6E6 4rem,
-            transparent 4rem,
-            transparent 8rem);
+        width: calc(100% - 23rem);
+        height: 0;
+        border: 1rem dashed #E6E6E6;
+        flex: 1;
       }
     }
 
@@ -99,18 +96,67 @@
       justify-content: space-between;
       align-items: center;
       padding-inline: 12rem;
-      margin: 7rem 0 7rem 34rem;
+      margin: 0 0 0 23rem;
+      height: 28rem;
+
+      &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 42rem;
+      }
 
       &__label {
         @include font(12, 500, 14);
         text-align: center;
         color: #B3B3B3;
-        width: 45rem;
+      }
+
+      &__average {
+        @include font(12, 500, 14);
+        text-align: center;
+        color: #B3B3B3;
+        margin-top: 2rem;
       }
     }
   }
 }
 
+// Bar Chart Styles
+.barChartWrapper {
+  position: absolute;
+  width: calc(100% - 23rem);
+  height: 180rem;
+  left: 23rem;
+  top: 7rem;
+  z-index: 2;
+}
+
+.barChartSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.barRect {
+  transform-origin: bottom;
+  animation: growBar 0.8s ease-out forwards;
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+@keyframes growBar {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+// Line Chart Styles (kept for reference, can be removed if not needed)
 .chartWrapper {
   position: absolute;
   width: calc(100% - 42rem);
@@ -123,7 +169,6 @@
     height: 100%;
   }
 }
-
 
 .lineResults {
   stroke: rgba(161, 127, 231, 0.9);
@@ -158,156 +203,5 @@
 @keyframes drawLine {
   to {
     stroke-dashoffset: 0;
-  }
-}
-
-
-.legendContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100rem;
-  justify-content: space-between;
-  padding-bottom: 30rem;
-  
-  .legendLeft {
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-
-    .legendItem {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 8rem;
-
-      .legendColor {
-        width: 14rem;
-        height: 4rem;
-        border-radius: 2rem;
-
-        &.results {
-          background: #A17FE7;
-        }
-
-        &.behaviour {
-          background: #82EDE9;
-        }
-
-        &.responsibility {
-          background: #D485E6;
-        }
-      }
-
-      .legendText {
-        font-weight: 500;
-        font-size: 12rem;
-        line-height: 14rem;
-        color: #1A1A1A;
-      }
-    }
-
-    .checkboxGroup {
-      display: flex;
-      flex-direction: column;
-      gap: 4rem;
-
-      .checkbox {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 6rem;
-        cursor: pointer;
-
-        input[type="checkbox"] {
-          width: 15rem;
-          height: 15rem;
-          background: #F5F5F5;
-          border: 1rem solid #D9D9D9;
-          border-radius: 3rem;
-          cursor: pointer;
-          appearance: none;
-          position: relative;
-          transition: all 0.2s;
-          flex-shrink: 0;
-
-          &:hover {
-            border-color: #A17FE7;
-          }
-
-          &:checked {
-            background: #A17FE7;
-            border-color: #A17FE7;
-
-            &::after {
-              content: '✓';
-              position: absolute;
-              color: white;
-              font-size: 10rem;
-              font-weight: 600;
-              left: 50%;
-              top: 50%;
-              transform: translate(-50%, -50%);
-            }
-          }
-        }
-
-        span {
-          font-weight: 500;
-          font-size: 10rem;
-          line-height: 14rem;
-          color: #666666;
-        }
-      }
-
-    }
-  }
-
-  .showAverage {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 6rem;
-    cursor: pointer;
-    padding: 20rem 0 48rem;
-
-    input[type="radio"] {
-      width: 16rem;
-      height: 16rem;
-      background: #FFFFFF;
-      border: 1.5rem solid #D9D9D9;
-      border-radius: 50%;
-      cursor: pointer;
-      appearance: none;
-      position: relative;
-      transition: all 0.2s;
-      flex-shrink: 0;
-
-      &:hover {
-        border-color: #A17FE7;
-      }
-
-      &:checked {
-        border-color: #A17FE7;
-
-        &::after {
-          content: '';
-          position: absolute;
-          width: 7rem;
-          height: 7rem;
-          background: #A17FE7;
-          border-radius: 50%;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-        }
-      }
-    }
-
-    span {
-      font-weight: 500;
-      font-size: 12rem;
-      line-height: 14rem;
-      color: #1A1A1A;
-    }
   }
 }

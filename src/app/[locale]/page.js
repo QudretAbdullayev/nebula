@@ -1,4 +1,4 @@
-import PerformanceChart from "@/components/Performance copy/Performance";
+import PerformanceChart from "@/components/Performance/Performance";
 
 
 export default function Home() {
