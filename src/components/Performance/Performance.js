@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "./Performance.module.scss";
 import Header from "./Header/Header";
+import Detail from "./Detail/Detail";
 
 const PerformanceChart = () => {
   const [showAverage, setShowAverage] = useState(false);
@@ -26,18 +27,11 @@ const PerformanceChart = () => {
     const width = 498;
     const height = 194;
     const points = data.length;
-    
-    // Calculate positions to match x-axis labels (space-between behavior)
-    // First point at 0, last point at width, others evenly distributed
-    const xPositions = data.map((_, i) => {
-      if (i === 0) return 0;
-      if (i === points - 1) return width;
-      return (width / (points - 1)) * i;
-    });
+    const xStep = width / (points - 1);
 
     // Convert data to coordinates
     const coords = data.map((value, i) => ({
-      x: xPositions[i],
+      x: i * xStep,
       y: height - (value * height) / 100,
     }));
 
@@ -48,6 +42,7 @@ const PerformanceChart = () => {
     for (let i = 1; i < coords.length; i++) {
       const prev = coords[i - 1];
       const curr = coords[i];
+      const next = coords[i + 1];
 
       // Calculate control points for smooth curves
       const cp1x = prev.x + (curr.x - prev.x) / 2;
@@ -72,9 +67,7 @@ const PerformanceChart = () => {
           <div className={`${styles.dot} ${styles.active}`}></div>
         </div>
 
-        {/* Header */}
         <Header/>
-
         {/* Chart Area */}
         <div className={styles.chart}>
           <div className={styles.chart__container}>
@@ -129,82 +122,8 @@ const PerformanceChart = () => {
               ))}
             </div>
           </div>
-          {/* Legend */}
-          <div className={styles.legendContainer}>
-            <label className={styles.showAverage}>
-              <input
-                type="radio"
-                name="showAverage"
-                checked={showAverage}
-                onChange={(e) => setShowAverage(e.target.checked)}
-              />
-              <span>Show average</span>
-            </label>
-            <div className={styles.legendLeft}>
-              <div className={styles.legendItem}>
-                <div
-                  className={`${styles.legendColor} ${styles.results}`}
-                ></div>
-                <span className={styles.legendText}>Results</span>
-              </div>
 
-              <div className={styles.checkboxGroup}>
-                <label className={styles.checkbox}>
-                  <input
-                    type="checkbox"
-                    checked={checkedItems.achievements}
-                    onChange={(e) =>
-                      setCheckedItems({
-                        ...checkedItems,
-                        achievements: e.target.checked,
-                      })
-                    }
-                  />
-                  <span>Achievements</span>
-                </label>
-                <label className={styles.checkbox}>
-                  <input
-                    type="checkbox"
-                    checked={checkedItems.quality}
-                    onChange={(e) =>
-                      setCheckedItems({
-                        ...checkedItems,
-                        quality: e.target.checked,
-                      })
-                    }
-                  />
-                  <span>Quality of work</span>
-                </label>
-                <label className={styles.checkbox}>
-                  <input
-                    type="checkbox"
-                    checked={checkedItems.workload}
-                    onChange={(e) =>
-                      setCheckedItems({
-                        ...checkedItems,
-                        workload: e.target.checked,
-                      })
-                    }
-                  />
-                  <span>Workload</span>
-                </label>
-              </div>
-
-              <div className={styles.legendItem}>
-                <div
-                  className={`${styles.legendColor} ${styles.behaviour}`}
-                ></div>
-                <span className={styles.legendText}>Behaviour</span>
-              </div>
-
-              <div className={styles.legendItem}>
-                <div
-                  className={`${styles.legendColor} ${styles.responsibility}`}
-                ></div>
-                <span className={styles.legendText}>Responsibility</span>
-              </div>
-            </div>
-          </div>
+          <Detail showAverage={showAverage} setShowAverage={setShowAverage} checkedItems={checkedItems} setCheckedItems={setCheckedItems} />
         </div>
       </div>
     </div>

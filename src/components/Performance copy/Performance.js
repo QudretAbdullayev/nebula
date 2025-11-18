@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "./Performance.module.scss";
 import Header from "./Header/Header";
+import Detail from "./Detail/Detail";
 
 const PerformanceChart = () => {
   const [showAverage, setShowAverage] = useState(false);
@@ -14,65 +15,55 @@ const PerformanceChart = () => {
     workload: false,
   });
 
-  // Bar chart data
+  // Bar colors - applied to all groups
+  const barColors = [
+    'rgba(161, 127, 231, 0.4)', // Purple - Results
+    'rgba(130, 237, 233, 0.4)', // Cyan - Behaviour
+    'rgba(212, 133, 230, 0.4)'  // Pink - Responsibility
+  ];
+
+  // Bar chart data - values are from 0 to 5
   const barChartData = [
     {
       month: 'Jan',
       average: 4.64,
-      bars: [
-        { height: 128, color: 'rgba(161, 127, 231, 0.4)' },
-        { height: 141, color: 'rgba(130, 237, 233, 0.4)' },
-        { height: 160, color: 'rgba(212, 133, 230, 0.4)' }
-      ]
+      bars: [3.56, 3.92, 4.44]
     },
     {
       month: 'Feb',
       average: 4.71,
-      bars: [
-        { height: 161, color: 'rgba(161, 127, 231, 0.4)' },
-        { height: 143, color: 'rgba(130, 237, 233, 0.4)' },
-        { height: 129, color: 'rgba(212, 133, 230, 0.4)' }
-      ]
+      bars: [4.47, 3.97, 3.58]
     },
     {
       month: 'Mar',
       average: 4.71,
-      bars: [
-        { height: 131, color: 'rgba(161, 127, 231, 0.4)' },
-        { height: 125, color: 'rgba(130, 237, 233, 0.4)' },
-        { height: 149, color: 'rgba(212, 133, 230, 0.4)' }
-      ]
+      bars: [3.64, 3.47, 4.14]
     },
     {
       month: 'Apr',
       average: 4.52,
-      bars: [
-        { height: 126, color: 'rgba(161, 127, 231, 0.4)' },
-        { height: 139, color: 'rgba(130, 237, 233, 0.4)' },
-        { height: 158, color: 'rgba(212, 133, 230, 0.4)' }
-      ]
+      bars: [3.50, 3.86, 4.39]
     },
     {
       month: 'May',
       average: 4.96,
-      bars: [
-        { height: 161, color: 'rgba(161, 127, 231, 0.4)' },
-        { height: 136, color: 'rgba(130, 237, 233, 0.4)' },
-        { height: 140, color: 'rgba(212, 133, 230, 0.4)' }
-      ]
+      bars: [4.47, 3.78, 3.89]
     },
     {
       month: 'Jun',
       average: 4.80,
-      bars: [
-        { height: 161, color: 'rgba(161, 127, 231, 0.4)' },
-        { height: 143, color: 'rgba(130, 237, 233, 0.4)' },
-        { height: 129, color: 'rgba(212, 133, 230, 0.4)' }
-      ]
+      bars: [4.47, 3.97, 3.58]
     }
   ];
   
   const barChartYLabels = [5, 4, 3, 2, 1, 0];
+  const maxValue = 5; // Maximum value on Y-axis
+  const chartHeight = 180; // SVG height
+  
+  // Helper function to convert value (0-5) to pixel height
+  const valueToHeight = (value) => {
+    return (value / maxValue) * chartHeight;
+  };
 
   // Generate smooth SVG path for a line using cubic bezier curves
   const generatePath = (data) => {
@@ -161,7 +152,7 @@ const PerformanceChart = () => {
                       onMouseLeave={() => setHoveredGroup(null)}
                       style={{ cursor: 'pointer' }}
                     >
-                      {group.bars.map((bar, barIndex) => {
+                      {group.bars.map((barValue, barIndex) => {
                         // Hide non-selected bars when a bar is selected
                         if (selectedBarIndex !== null && selectedBarIndex !== barIndex) {
                           return null;
@@ -172,7 +163,9 @@ const PerformanceChart = () => {
                           ? baseGroupX + (groupWidth - barWidth) / 2  // Centered
                           : baseGroupX + barIndex * barWidth;          // Normal position
                         
-                        const barY = 180 - bar.height;
+                        const barHeight = valueToHeight(barValue);
+                        const barY = chartHeight - barHeight;
+                        const barColor = barColors[barIndex];
                         
                         return (
                           <rect
@@ -180,8 +173,8 @@ const PerformanceChart = () => {
                             x={barX}
                             y={barY}
                             width={barWidth}
-                            height={bar.height}
-                            fill={isGrayedOut ? '#E0E0E0' : bar.color}
+                            height={barHeight}
+                            fill={isGrayedOut ? '#E0E0E0' : barColor}
                             rx="7"
                             ry="7"
                             className={styles.barRect}
@@ -213,83 +206,7 @@ const PerformanceChart = () => {
               ))}
             </div>
           </div>
-          
-          {/* Legend */}
-          <div className={styles.legendContainer}>
-            <label className={styles.showAverage}>
-              <input
-                type="radio"
-                name="showAverage"
-                checked={showAverage}
-                onChange={(e) => setShowAverage(e.target.checked)}
-              />
-              <span>Show average</span>
-            </label>
-            <div className={styles.legendLeft}>
-              <div className={styles.legendItem}>
-                <div
-                  className={`${styles.legendColor} ${styles.results}`}
-                ></div>
-                <span className={styles.legendText}>Results</span>
-              </div>
-
-              <div className={styles.checkboxGroup}>
-                <label className={styles.checkbox}>
-                  <input
-                    type="checkbox"
-                    checked={checkedItems.achievements}
-                    onChange={(e) =>
-                      setCheckedItems({
-                        ...checkedItems,
-                        achievements: e.target.checked,
-                      })
-                    }
-                  />
-                  <span>Achievements</span>
-                </label>
-                <label className={styles.checkbox}>
-                  <input
-                    type="checkbox"
-                    checked={checkedItems.quality}
-                    onChange={(e) =>
-                      setCheckedItems({
-                        ...checkedItems,
-                        quality: e.target.checked,
-                      })
-                    }
-                  />
-                  <span>Quality of work</span>
-                </label>
-                <label className={styles.checkbox}>
-                  <input
-                    type="checkbox"
-                    checked={checkedItems.workload}
-                    onChange={(e) =>
-                      setCheckedItems({
-                        ...checkedItems,
-                        workload: e.target.checked,
-                      })
-                    }
-                  />
-                  <span>Workload</span>
-                </label>
-              </div>
-
-              <div className={styles.legendItem}>
-                <div
-                  className={`${styles.legendColor} ${styles.behaviour}`}
-                ></div>
-                <span className={styles.legendText}>Behaviour</span>
-              </div>
-
-              <div className={styles.legendItem}>
-                <div
-                  className={`${styles.legendColor} ${styles.responsibility}`}
-                ></div>
-                <span className={styles.legendText}>Responsibility</span>
-              </div>
-            </div>
-          </div>
+          <Detail showAverage={showAverage} setShowAverage={setShowAverage} />
         </div>
       </div>
     </div>
