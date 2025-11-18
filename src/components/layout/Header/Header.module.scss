@@ -1,0 +1,55 @@
+@use '@/assets/styles/abstracts/' as *;
+
+.header {
+    background: transparent;
+    padding-top: 20rem;
+    padding-bottom: 20rem;
+    .nav {
+        background-color: $grayscale-800;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12rem 18rem;
+        border-radius: 24rem;
+        &__logo {
+            width: 105rem;
+            height: 36rem;
+            position: relative;
+            object-fit: contain;
+        }
+        &__links {
+            display: flex;
+            align-items: center;
+            li{
+                a{
+                    color: $grayscale-600;
+                    margin-right: 12rem;
+                    @include font(16, 500, 24);
+                    leading-trim: NONE;
+                    letter-spacing: 0%;
+                    padding: 8rem 12rem;
+                    cursor: pointer;
+                    &.active{
+                        color: $grayscale-100;
+                    }
+                }
+                svg {
+                    color: $grayscale-600;
+                    width: 20rem;
+                    height: 20rem;
+                    cursor: pointer;
+                    // &:hover{
+                    //     color: $grayscale-100;
+                    // }
+                }
+                &:last-child {
+                    margin-right: 0;
+                    padding: 14rem;
+                }
+                &:nth-last-child(2){
+                    padding: 14rem;
+                }
+            }
+        }
+    }
+}

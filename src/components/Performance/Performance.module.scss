@@ -1,0 +1,311 @@
+@use '@/assets/styles/abstracts/' as *;
+
+.container {
+  width: 692rem;
+  height: 404rem;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Urbanist', sans-serif;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10rem);
+  border: 1rem solid #E0E0E0;
+  border-radius: 24rem;
+  padding: 20rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.sliderButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6rem;
+  position: absolute;
+  top: 16rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.dot {
+  width: 8rem;
+  height: 8rem;
+  background: #E6E6E6;
+  border-radius: 50%;
+  transition: background 0.3s;
+
+  &.active {
+    background: #A17FE7;
+  }
+}
+
+.chart {
+  display: flex;
+  gap: 20rem;
+  flex: 1;
+
+  &__container {
+    position: relative;
+    width: 532rem;
+    display: flex;
+    flex-direction: column;
+
+    &__yAxis {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      height: 194rem;
+
+      &__item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10rem;
+        width: 100%;
+      }
+
+      &__label {
+        min-width: 32rem;
+        font-weight: 500;
+        font-size: 12rem;
+        line-height: 14rem;
+        text-align: right;
+        color: #B3B3B3;
+      }
+
+      &__gridLine {
+        width: calc(100% - 42rem);
+        height: 1rem;
+        background: repeating-linear-gradient(to right,
+            #E6E6E6 0,
+            #E6E6E6 4rem,
+            transparent 4rem,
+            transparent 8rem);
+      }
+    }
+
+    &__xAxis {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-inline: 12rem;
+      margin: 7rem 0 7rem 34rem;
+
+      &__label {
+        @include font(12, 500, 14);
+        text-align: center;
+        color: #B3B3B3;
+        width: 45rem;
+      }
+    }
+  }
+}
+
+.chartWrapper {
+  position: absolute;
+  width: calc(100% - 42rem);
+  height: 194rem;
+  left: 42rem;
+  top: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+.lineResults {
+  stroke: rgba(161, 127, 231, 0.9);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 2.5s ease-out forwards;
+}
+
+.lineBehaviour {
+  stroke: rgba(130, 237, 233, 0.9);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 2.5s ease-out 0.3s forwards;
+}
+
+.lineResponsibility {
+  stroke: rgba(212, 133, 230, 0.9);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 2.5s ease-out 0.6s forwards;
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+.legendContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100rem;
+
+  .legendLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+
+    .legendItem {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8rem;
+
+      .legendColor {
+        width: 14rem;
+        height: 4rem;
+        border-radius: 2rem;
+
+        &.results {
+          background: #A17FE7;
+        }
+
+        &.behaviour {
+          background: #82EDE9;
+        }
+
+        &.responsibility {
+          background: #D485E6;
+        }
+      }
+
+      .legendText {
+        font-weight: 500;
+        font-size: 12rem;
+        line-height: 14rem;
+        color: #1A1A1A;
+      }
+    }
+
+    .checkboxGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 4rem;
+
+      .checkbox {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 6rem;
+        cursor: pointer;
+
+        input[type="checkbox"] {
+          width: 15rem;
+          height: 15rem;
+          background: #F5F5F5;
+          border: 1rem solid #D9D9D9;
+          border-radius: 3rem;
+          cursor: pointer;
+          appearance: none;
+          position: relative;
+          transition: all 0.2s;
+          flex-shrink: 0;
+
+          &:hover {
+            border-color: #A17FE7;
+          }
+
+          &:checked {
+            background: #A17FE7;
+            border-color: #A17FE7;
+
+            &::after {
+              content: '✓';
+              position: absolute;
+              color: white;
+              font-size: 10rem;
+              font-weight: 600;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+            }
+          }
+        }
+
+        span {
+          font-weight: 500;
+          font-size: 10rem;
+          line-height: 14rem;
+          color: #666666;
+        }
+      }
+
+    }
+  }
+
+  .showAverage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6rem;
+    cursor: pointer;
+    padding: 20rem 0 48rem;
+
+    input[type="radio"] {
+      width: 16rem;
+      height: 16rem;
+      background: #FFFFFF;
+      border: 1.5rem solid #D9D9D9;
+      border-radius: 50%;
+      cursor: pointer;
+      appearance: none;
+      position: relative;
+      transition: all 0.2s;
+      flex-shrink: 0;
+
+      &:hover {
+        border-color: #A17FE7;
+      }
+
+      &:checked {
+        border-color: #A17FE7;
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 7rem;
+          height: 7rem;
+          background: #A17FE7;
+          border-radius: 50%;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+
+    span {
+      font-weight: 500;
+      font-size: 12rem;
+      line-height: 14rem;
+      color: #1A1A1A;
+    }
+  }
+}

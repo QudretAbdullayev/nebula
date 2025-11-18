@@ -1,0 +1,31 @@
+@use '@/assets/styles/abstracts/' as *;
+
+.move {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.vector1,
+.vector2 {
+    position: absolute;
+    transition: all 3s ease-in-out;
+    pointer-events: none;
+}
+
+.vector1 {
+    width: 650px;
+    height: 569px;
+    filter: blur(275.29998779296875px);
+}
+
+.vector2 {
+    width: 574px;
+    height: 665px;
+    filter: blur(275.29998779296875px);
+}
