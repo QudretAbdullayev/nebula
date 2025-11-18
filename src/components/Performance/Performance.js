@@ -4,6 +4,8 @@ import { useState } from "react";
 import styles from "./Performance.module.scss";
 import Header from "./Header/Header";
 import Detail from "./Detail/Detail";
+import XAxis from "./XAxis/XAxis";
+import YAxis from "./YAxis/YAxis";
 
 const PerformanceChart = () => {
   const [showAverage, setShowAverage] = useState(false);
@@ -130,14 +132,7 @@ const PerformanceChart = () => {
         <div className={styles.chart}>
           <div className={styles.chart__container}>
             {/* Y-axis labels */}
-            <div className={styles.chart__container__yAxis}>
-              {(activeSlide === 0 ? lineChartYLabels : barChartYLabels).map((label, index) => (
-                <div key={index} className={styles.chart__container__yAxis__item}>
-                  <span className={styles.chart__container__yAxis__label}>{label}</span>
-                  <div className={styles.chart__container__yAxis__gridLine}></div>
-                </div>
-              ))}
-            </div>
+            <YAxis activeSlide={activeSlide} lineChartYLabels={lineChartYLabels} barChartYLabels={barChartYLabels} />
 
             {/* Conditional Chart Rendering */}
             {activeSlide === 0 ? (
@@ -237,24 +232,7 @@ const PerformanceChart = () => {
             )}
 
             {/* X-axis labels */}
-            <div className={styles.chart__container__xAxis}>
-              {activeSlide === 0 ? (
-                // Line chart x-axis
-                months.map((month, index) => (
-                  <span key={index} className={styles.chart__container__xAxis__label}>
-                    {month}
-                  </span>
-                ))
-              ) : (
-                // Bar chart x-axis with averages
-                barChartData.map((data, index) => (
-                  <div key={index} className={styles.chart__container__xAxis__item}>
-                    <span className={styles.chart__container__xAxis__label}>{data.month}</span>
-                    <span className={styles.chart__container__xAxis__average}>{data.average}</span>
-                  </div>
-                ))
-              )}
-            </div>
+            <XAxis activeSlide={activeSlide} months={months} barChartData={barChartData} />
           </div>
           <Detail showAverage={showAverage} setShowAverage={setShowAverage} checkedItems={checkedItems} setCheckedItems={setCheckedItems} />
         </div>
