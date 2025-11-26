@@ -1,0 +1,61 @@
+.chartContainer {
+  position: relative;
+  width: 323rem;
+  height: 235rem;
+}
+
+.chartSvg {
+  display: block;
+}
+
+.gridCircle {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.1);
+  stroke-width: 0.872667;
+}
+
+.axisLine {
+  stroke: rgba(0, 0, 0, 0.1);
+  stroke-width: 0.872667;
+}
+
+.currentPolygon {
+  fill: url(#currentGradient);
+  stroke: #A17FE7;
+  stroke-width: 1.02325;
+  opacity: 1;
+}
+
+.previousPolygon {
+  fill: url(#previousGradient);
+  stroke: #D485E6;
+  stroke-width: 1.02325;
+  opacity: 1;
+}
+
+.labelTitle {
+  font-weight: 500;
+  font-size: 12rem;
+  line-height: 14rem;
+  text-align: center;
+  fill: #262626;
+}
+
+.labelValue {
+  font-weight: 500;
+  font-size: 10rem;
+  line-height: 14rem;
+  text-align: center;
+  fill: #999999;
+}
+
+.chartSvg defs linearGradient {
+  stop:first-child {
+    stop-color: #A17FE7;
+    stop-opacity: 0.4;
+  }
+  stop:last-child {
+    stop-color: #A17FE7;
+    stop-opacity: 0.4;
+  }
+}

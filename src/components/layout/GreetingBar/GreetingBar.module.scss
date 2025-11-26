@@ -1,0 +1,68 @@
+@use '@/assets/styles/abstracts/' as *;
+
+.greeting {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 12rem;
+
+    &__title {
+        @include font(32, 500, 40);
+        vertical-align: middle;
+        color: $grayscale-800;
+        padding: 5rem 0 1rem;
+    }
+
+    .evaluation {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        &__info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12rem;
+
+            &__title {
+                @include font(16, 500, 24);
+                color: $grayscale-700;
+            }
+
+            &__progress {
+                position: relative;
+                width: 128rem;
+                height: 10rem;
+                background: $progress-bar-bg;
+                border-radius: 100rem;
+                overflow: hidden;
+                z-index: 4;
+
+                &__bar {
+                    position: absolute;
+                    z-index: 4;
+                    width: 101rem;
+                    height: 10rem;
+                    left: 0rem;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    background: $progress-bar-fill;
+                    box-shadow:
+                        0rem 0rem 250rem $progress-bar-glow,
+                        0rem 0rem 250rem $progress-bar-glow,
+                        0rem 0rem 159.499rem $progress-bar-glow,
+                        0rem 0rem 79.7496rem $progress-bar-glow,
+                        0rem 0rem 22.7856rem $progress-bar-glow,
+                        0rem 0rem 11.3928rem $progress-bar-glow;
+                    border-radius: 100rem;
+                }
+            }
+        }
+
+        &__time {
+            @include font(14, 400, 18);
+            text-align: right;
+            color: $grayscale-500;
+        }
+    }
+}

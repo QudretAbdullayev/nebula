@@ -1,8 +1,7 @@
-import PerformanceChart from "@/components/Performance/Performance";
-
+import DashboardPage from "@/modules/DashboardPage";
 
 export default function Home() {
   return (
-    <PerformanceChart /> 
+    <DashboardPage/>
   );
 }

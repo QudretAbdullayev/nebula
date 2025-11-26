@@ -1,0 +1,98 @@
+@use '@/assets/styles/abstracts/' as *;
+
+.card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20rem;
+
+    &__performer {
+        position: absolute;
+        width: 322rem;
+        height: 318rem;
+        left: 50%;
+        top: 8rem;
+        transform: translateX(-50%);
+        border-radius: 24rem;
+        overflow: hidden;
+
+        &__icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 42rem;
+            height: 42rem;
+            right: 20rem;
+            top: 0;
+            background: rgba(161, 127, 231, 0.4);
+            border-radius: 0rem 0rem 8rem 8rem;
+
+            svg {
+                width: 24rem;
+                height: 24rem;
+            }
+        }
+
+        &__label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12rem;
+            gap: 8rem;
+            position: absolute;
+            width: 282rem;
+            height: 50rem;
+            left: 50%;
+            top: 248rem;
+            transform: translateX(-50%);
+            background: rgba(161, 127, 231, 0.4);
+            border-radius: 16rem;
+            @include font(18, 500, 26);
+            color: #FAFAFA;
+        }
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 6rem 20rem 18rem;
+        isolation: isolate;
+        position: absolute;
+        width: 338rem;
+        height: 78rem;
+        left: 0;
+        top: 326rem;
+
+        &__name {
+            @include font(20, 500, 28);
+            color: $grayscale-850;
+        }
+
+        &__position {
+            @include font(18, 400, 26);
+            color: $grayscale-500;
+        }
+
+        &__button {
+            position: absolute;
+            width: 24rem;
+            height: 24rem;
+            right: 20rem;
+            top: 8rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            svg {
+                color: $grayscale-850;
+            }
+        }
+    }
+}

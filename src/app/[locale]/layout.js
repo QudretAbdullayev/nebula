@@ -7,6 +7,7 @@ import { fetchData } from '@/utils/httpService';
 import Header from '@/components/layout/Header/Header';
 import Move from '@/components/Move/Move';
 import { Urbanist } from 'next/font/google';
+import GreetingBar from '@/components/layout/GreetingBar/GreetingBar';
 
 const urbanist = Urbanist({
   subsets: ['latin'],
@@ -58,6 +59,7 @@ export default async function RootLayout({ children, params }) {
           <Move />
           <div style={{ position: 'relative', zIndex: 1 }}>
             <Header />
+            <GreetingBar />
             <main>
               {children}
             </main>

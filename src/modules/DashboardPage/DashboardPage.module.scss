@@ -1,0 +1,27 @@
+.row{
+    display: grid;
+    grid-template-columns: 338fr 692fr 338fr;
+    gap: 16rem;
+    height: 404rem;
+    width: 100%;
+    margin-top: 16rem;
+    &__right{
+        display: flex;
+        flex-direction: column;
+        gap: 16rem;
+    }
+}
+
+.rowSecond {
+    display: grid;
+    grid-template-columns: 338fr 692fr 338fr;
+    gap: 16rem;
+    height: 430rem;
+    width: 100%;
+    margin-top: 16rem;
+    &__right{
+        display: flex;
+        flex-direction: column;
+        gap: 16rem;
+    }
+}
